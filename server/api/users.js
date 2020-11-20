@@ -1,5 +1,7 @@
 const router = require('express').Router()
 const {User} = require('../db/models')
+const Sequelize = require('sequelize')
+const {Op} = require('sequelize')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -9,6 +11,50 @@ router.get('/', async (req, res, next) => {
       // users' passwords are encrypted, it won't help if we just
       // send everything to anyone who asks!
       attributes: ['id', 'email']
+    })
+    res.json(users)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put('/:userId/location', async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.userId)
+    await user.update(req.body)
+    const updated = await User.findAll({where: {id: req.params.userId}})
+    res.json(updated[0])
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/:userId/nearby', async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.userId)
+    const users = await User.findAll({
+      where: {
+        updatedAt: {
+          [Op.gte]: Sequelize.literal("NOW() - (INTERVAL '10 MINUTE')")
+        },
+        $and: Sequelize.where(
+          Sequelize.fn(
+            'ST_DWithin',
+            Sequelize.col('location'),
+            Sequelize.fn(
+              'ST_SetSRID',
+              Sequelize.fn(
+                'ST_MakePoint',
+                user.location.coordinates[0],
+                user.location.coordinates[1]
+              ),
+              4326
+            ),
+            0.032
+          ),
+          true
+        )
+      }
     })
     res.json(users)
   } catch (err) {

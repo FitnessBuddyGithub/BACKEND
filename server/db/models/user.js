@@ -24,8 +24,14 @@ const User = db.define('user', {
       return () => this.getDataValue('salt')
     }
   },
-  googleId: {
-    type: Sequelize.STRING
+  // googleId: {
+  //   type: Sequelize.STRING
+  // },
+  gender: {
+    type: Sequelize.ENUM('male', 'female')
+  },
+  location: {
+    type: Sequelize.GEOMETRY('POINT')
   }
 })
 
