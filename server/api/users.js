@@ -48,7 +48,7 @@ router.get('/:userId/nearby', async (req, res, next) => {
                 user.location.coordinates[0],
                 user.location.coordinates[1]
               ),
-              4326
+              0
             ),
             0.032
           ),
