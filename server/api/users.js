@@ -47,8 +47,7 @@ router.get('/:userId/nearby', async (req, res, next) => {
                 'ST_MakePoint',
                 user.location.coordinates[0],
                 user.location.coordinates[1]
-              ),
-              0
+              )
             ),
             0.032
           ),
