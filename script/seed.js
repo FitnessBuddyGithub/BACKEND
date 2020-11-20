@@ -8,19 +8,51 @@ async function seed() {
   console.log('db synced!')
 
   const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'}),
-    User.create({email: 'mikyla@email.com', password: '123'}),
+    User.create({
+      email: 'cody@email.com',
+      password: '123',
+      location: {type: 'Point', coordinates: [39.807224, -76.9847225]}
+    }),
+    User.create({
+      email: 'murphy@email.com',
+      password: '123',
+      location: {type: 'Point', coordinates: [39.807224, -76.9847224]}
+    }),
+    User.create({
+      email: 'mikyla@email.com',
+      password: '123',
+      location: {type: 'Point', coordinates: [39.807223, -76.9847225]}
+    }),
 
-    User.create({email: 'jenna@email.com', password: '123'}),
+    User.create({
+      email: 'jenna@email.com',
+      password: '123',
+      location: {type: 'Point', coordinates: [39.807224, -76.98472234]}
+    }),
 
-    User.create({email: 'alice@email.com', password: '123'}),
+    User.create({
+      email: 'alice@email.com',
+      password: '123',
+      location: {type: 'Point', coordinates: [39.807224, -76.98472234]}
+    }),
 
-    User.create({email: 'olivia@email.com', password: '123'}),
+    User.create({
+      email: 'olivia@email.com',
+      password: '123',
+      location: {type: 'Point', coordinates: [39.807224, -76.98472234]}
+    }),
 
-    User.create({email: 'bella@email.com', password: '123'}),
+    User.create({
+      email: 'bella@email.com',
+      password: '123',
+      location: {type: 'Point', coordinates: [39.807224, -76.98472234]}
+    }),
 
-    User.create({email: 'joni@email.com', password: '123'})
+    User.create({
+      email: 'joni@email.com',
+      password: '123',
+      location: {type: 'Point', coordinates: [39.807224, -76.98472234]}
+    })
   ])
 
   console.log(`seeded ${users.length} users`)
