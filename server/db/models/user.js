@@ -31,7 +31,7 @@ const User = db.define('user', {
     type: Sequelize.ENUM('male', 'female')
   },
   location: {
-    type: Sequelize.GEOMETRY('POINT')
+    type: Sequelize.GEOMETRY('POINT', 4326)
   }
 })
 
