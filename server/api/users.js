@@ -1,6 +1,19 @@
 const router = require('express').Router()
 const {User} = require('../db/models')
 const Sequelize = require('sequelize')
+const sequelize = new Sequelize('stackathon', 'yufanzhang', '882800bbZ', {
+  host: 'localhost',
+  dialect: 'postgres',
+  logging: console.log,
+  freezeTableName: true,
+
+  pool: {
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000
+  }
+})
 const {Op} = require('sequelize')
 module.exports = router
 
@@ -13,6 +26,17 @@ router.get('/', async (req, res, next) => {
       attributes: ['id', 'email', 'location']
     })
     res.json(users)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.get('/:userId/srid-check', async (req, res, next) => {
+  try {
+    query_result = await sequelize.query(
+      `SELECT "id", ST_SRID(location) FROM "users"`
+    )
+    res.json(query_result)
   } catch (err) {
     next(err)
   }
