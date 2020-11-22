@@ -7,7 +7,7 @@ module.exports = router
 router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll({
-      attributes: {exclude: ['password']}
+      attributes: {exclude: ['createdAt']}
     })
     res.json(users)
   } catch (err) {
