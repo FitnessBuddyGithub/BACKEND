@@ -9,47 +9,23 @@ async function seed() {
 
   const users = await Promise.all([
     User.create({
-      uid: 1,
+      uid: 'a1',
       email: 'cody@email.com',
-      password: '123',
+      password: '123456',
       location: {type: 'Point', coordinates: [99.807224, -76.9847225]}
     }),
     User.create({
-      uid: 2,
+      uid: 'a2',
       email: 'murphy@email.com',
-      password: '123',
+      password: '123456',
       location: {type: 'Point', coordinates: [39.807224, -76.9847224]}
     }),
     User.create({
-      uid: 3,
+      uid: 'a3',
 
       email: 'mikyla@email.com',
-      password: '123',
+      password: '123456',
       location: {type: 'Point', coordinates: [39.807223, -76.9847225]}
-    }),
-
-    User.create({
-      uid: 4,
-
-      email: 'jenna@email.com',
-      password: '123',
-      location: {type: 'Point', coordinates: [39.807224, -76.98472234]}
-    }),
-
-    User.create({
-      uid: 5,
-
-      email: 'alice@email.com',
-      password: '123',
-      location: {type: 'Point', coordinates: [39.807224, -76.98472234]}
-    }),
-
-    User.create({
-      uid: 6,
-
-      email: 'olivia@email.com',
-      password: '123',
-      location: {type: 'Point', coordinates: [39.807224, -76.98472234]}
     })
   ])
 
