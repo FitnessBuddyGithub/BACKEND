@@ -23,7 +23,7 @@ router.post('/login', async (req, res, next) => {
 
 router.post('/signup', async (req, res, next) => {
   try {
-    const {token, email} = req.body
+    const {token, email, gender} = req.body
 
     const decodedToken = await admin.auth().verifyIdToken(token)
     const uid = decodedToken.uid
@@ -31,7 +31,8 @@ router.post('/signup', async (req, res, next) => {
     const [user] = await User.findOrCreate({
       where: {
         uid,
-        email
+        email,
+        gender
       }
     })
 
