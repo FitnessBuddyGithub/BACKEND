@@ -7,7 +7,7 @@ module.exports = router
 router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll({
-      attributes: {exclude: ['createdAt']}
+      attributes: {exclude: ['password']}
     })
     res.json(users)
   } catch (err) {
@@ -19,7 +19,7 @@ router.put('/:userId/location', async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.userId)
     await user.update(req.body)
-    const updated = await User.findAll({where: {id: req.params.userId}})
+    const updated = await User.findAll({where: {uid: req.params.userId}})
     res.json(updated[0])
   } catch (err) {
     next(err)
