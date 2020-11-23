@@ -32,7 +32,7 @@ router.post('/signup', async (req, res, next) => {
       where: {
         uid,
         email,
-        gender
+        userName
       }
     })
 
