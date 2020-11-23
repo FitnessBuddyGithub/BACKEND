@@ -27,7 +27,14 @@ async function seed() {
       userName: 'mikyla',
       email: 'mikyla@email.com',
       password: '123456',
-      location: {type: 'Point', coordinates: [39.807223, -76.9847225]}
+      location: {type: 'Point', coordinates: [-122.4, 37.77]}
+    }),
+    User.create({
+      uid: 'a4',
+      userName: 'tyler',
+      email: 'tyler@email.com',
+      password: '123456',
+      location: {type: 'Point', coordinates: [-122.42, 37.8]}
     })
   ])
 
