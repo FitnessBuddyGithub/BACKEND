@@ -23,7 +23,7 @@ router.post('/login', async (req, res, next) => {
 
 router.post('/signup', async (req, res, next) => {
   try {
-    const {token, email, gender} = req.body
+    const {token, email, userName} = req.body
 
     const decodedToken = await admin.auth().verifyIdToken(token)
     const uid = decodedToken.uid
