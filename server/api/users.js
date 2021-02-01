@@ -29,6 +29,7 @@ function addHash(done) {
       geohash: hash,
       lat: lat,
       lng: lng
+
     })
     .then(() => {
       // [START_EXCLUDE]
@@ -58,6 +59,7 @@ function queryHashes(done) {
 
     promises.push(q.get())
   }
+
 
   // Collect all the query results together into a single list
   Promise.all(promises)
@@ -95,6 +97,7 @@ router.put('/firestore', async (req, res, next) => {
     console.log('im in firestore put route')
     addHash(done)
     queryHashes(done)
+
   } catch (err) {
     console.log(err)
   }
@@ -104,10 +107,29 @@ router.put('/firestore', async (req, res, next) => {
 router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll({
-      // explicitly select only the id and email fields - even though
-      // users' passwords are encrypted, it won't help if we just
-      // send everything to anyone who asks!
-      attributes: ['id', 'email']
+
+      where: {
+        updatedAt: {
+          [Op.gte]: Sequelize.literal("NOW() - (INTERVAL '10 MINUTE')")
+        },
+        $and: Sequelize.where(
+          Sequelize.fn(
+            'ST_DWithin',
+            Sequelize.col('location'),
+            Sequelize.fn(
+              'ST_SetSRID',
+              Sequelize.fn(
+                'ST_MakePoint',
+                user.location.coordinates[0],
+                user.location.coordinates[1]
+              ),
+              0
+            ),
+            0.032
+          ),
+          true
+        )
+      }
     })
     res.json(users)
   } catch (err) {
