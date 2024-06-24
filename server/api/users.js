@@ -33,7 +33,7 @@ router.put('/:userId/location', async (req, res, next) => {
     next(err)
   }
 })
-
+//find nearby users
 router.get('/:userId/nearby', async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.userId)
